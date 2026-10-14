@@ -1,6 +1,9 @@
 (function () {
     'use strict';
 
+    var bootEl = document.getElementById('boot');
+    if (bootEl) bootEl.textContent = 'v2.1.2 kaios.js started';
+
     var API_BASE = 'https://cobolt-1-xmcq.gaur-alnilam.ts.net';
     var MAX_POSTS = 20;
 
@@ -12,6 +15,7 @@
     var allPosts = [];
 
     function $(id) { return document.getElementById(id); }
+
     function saveSession() {
         try {
             localStorage.setItem('kb_token', token);
@@ -30,6 +34,7 @@
             username = localStorage.getItem('kb_user');
         } catch (e) {}
     }
+
     function request(method, path, body, cb) {
         var xhr;
         try { xhr = new XMLHttpRequest({ mozSystem: true }); }
@@ -319,4 +324,5 @@
     loadSession();
     if (token) { show('posts'); loadPosts(); }
     else show('auth');
+    if (bootEl && bootEl.parentNode) bootEl.parentNode.removeChild(bootEl);
 })();
