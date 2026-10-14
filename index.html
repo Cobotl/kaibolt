@@ -2,292 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>COBOLT</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/links.css">
-    <link rel="icon" type="image/png" href="Images/logos/favicon-96x96.png?v=2" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="Images/logos/faviconlogo.svg?v=2" />
-    <link rel="shortcut icon" href="Images/Embed%20Logo.png?v=2" />
-    <link rel="apple-touch-icon" sizes="180x180" href="Images/logos/apple-touch-icon.png?v=2" />
-    <meta name="apple-mobile-web-app-title" content="Cobolt" />
-    <link rel="manifest" href="/site.webmanifest?v=2" />
-    <!-- AWS Amplify script removed - we're using our own Flask server instead -->
-    <!-- embed -->
-    <meta content="Cobolt" property="og:title" />
-    <meta content="Your platform, your games." property="og:description" />
-    <meta content="https://cobolt.github.io/" property="og:url" />
-    <meta content="https://cobotl.github.io/Images/Embed%20Logo.png" property="og:image" />
-    <meta content="#0047AB" data-react-helmet="true" property="theme-color" />
-    
-    <style>
-        body { font-family: Arial, sans-serif; background: #23272a; color: #fff; margin: 0; }
-        header { background: #181c20; padding: 1em; text-align: center; }
-        footer { background: #181c20; padding: 1em; text-align: center; }
-        nav a { color: #fff; margin: 0 1em; text-decoration: none; }
-        .container { max-width: 900px; margin: 2em auto; background: #2c3136; padding: 2em; border-radius: 8px; }
-        .game-list { display: flex; flex-wrap: wrap; gap: 1em; justify-content: center;}
-        .game-card { background: #23272a; padding: 1em; border-radius: 6px; width: 160px; }
-        .upload-form { margin-bottom: 2em; }
-        input, button { padding: 0.5em; border-radius: 4px; border: none; }
-        button { background: #3d59ab; color: #ffff; font-weight: bold; cursor: pointer; }
-        .upload { position: absolute; left:42.5% }
-        .games { position: absolute; left:36%; top: 13.7%; }
-        .logout { position: absolute; left:50%; top:13.5% }
-    </style>
+    <title>Cobolt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/kaios.css">
+    <link rel="icon" type="image/png" href="Images/logos/kaiosapplogo_56.png">
 </head>
 <body>
-    <header>
-        <img src="Images/logos/aerocoboltbeta.svg" alt="COBOLT Logo" width="150" style="height: 50px;">
-        <nav>
-            <a href="#" onclick="showSection('posts')">Posts</a>
-            <a href="#" onclick="signOut()">Sign Out</a>
-        <!-- Made the divs so we can move the icons, else would break shit -->
-        </nav>
-    </header>
-    <div class="container">
-        <div id="auth-section">
+<div id="app">
+    <div class="app-header">COBOLT <span class="who" id="who"></span></div>
+    <div class="app-content" id="content">
+        <div class="view" id="view-auth">
             <h2>Sign In</h2>
-            <input id="username" placeholder="Username" required/>
-            <input id="password" type="password" placeholder="Password" required/>
-            <button onclick="signIn()">Sign In</button>
-            <button onclick="signUp()">Sign Up</button>
-            <div id="auth-message"></div>
-            <p>By creating an account you agree to the <a href="conduct.html">Code of conduct</a> and have read the <a href="guidelines.html">Community Guidelines</a> of Cobolt</p>
-            <p>Please note for developers that the KaiOS version for Cobolt is in a different repository for those who want to contribute to Cobolt for KaiOS</p>
-            <p>Cobolt is in beta, please report any and all bugs you find. Things are subject to change.</p>
-            <p>Under limitations of software for KaiOS, the 'Games' section will not be displayed and only the 'Posts' section will, if you want to play games on Cobolt, on a computer go to https://cobotl.github.io<p>
+            <p>Important note: <strong>Cobolt CANNOT download games in KaiOS</strong>, Cobolt for KaiOS will only load posts.</p>
+            <label for="username">Username</label>
+            <input id="username" class="nav" autocomplete="off" autocapitalize="off">
+            <label for="password">Password</label>
+            <input id="password" class="nav" type="password" autocomplete="off">
+            <a class="item nav" tabindex="0" data-action="signin">Sign In</a>
+            <a class="item nav" tabindex="0" data-action="signup">Sign Up</a>
+            <div class="msg" id="auth-message"></div>
+            <p class="small">By signing up you agree to the
+                <a class="link nav" tabindex="0" href="conduct.html">Code of conduct</a> and
+                <a class="link nav" tabindex="0" href="guidelines.html">Community guidelines</a>.</p>
+            <p class="small">Cobolt is in beta. Games are only available on the desktop site: cobotl.github.io</p>
         </div>
-        <!-- Games and uploading is disabled for this client -->
-        <div id="posts-section" style="display:none;">
+        <div class="view" id="view-posts">
             <h2>Posts</h2>
-            <form class="upload-form" onsubmit="createPost(event)">
-                <textarea id="post-content" placeholder="What's on your mind?" rows="3" style="width:100%;" required></textarea><br><br>
-                <button type="submit">Post</button>
-            </form>
-            <div id="post-message"></div>
+            <a class="item nav" tabindex="0" data-action="new">New post</a>
+            <div class="msg" id="posts-message"></div>
             <div id="post-list"></div>
         </div>
+        <div class="view" id="view-compose">
+            <h2>New post</h2>
+            <textarea id="post-content" class="nav" placeholder="What's on your mind?"></textarea>
+            <a class="item nav" tabindex="0" data-action="post">Post</a>
+            <div class="msg" id="compose-message"></div>
+        </div>
     </div>
-
-    <script>
-        const API_BASE = "https://cobolt-1-xmcq.gaur-alnilam.ts.net/";
-        let authToken = null;
-        let currentUsername = null;
-        function showSection(section) {
-            document.getElementById('posts-section').style.display = section === 'posts' ? '' : 'none';
-        }
-        async function signIn() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch(`${API_BASE}/api/login`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    document.getElementById('auth-message').innerText = data.error || 'Sign in failed.';
-                    return;
-                }
-
-                authToken = data.token;
-                currentUsername = data.username;
-
-                document.getElementById('auth-section').style.display = 'none';
-                showSection('games');
-                loadGames();
-                loadPosts();
-            } catch (e) {
-                document.getElementById('auth-message').innerText = 'Could not reach server: ' + e.message;
-            }
-        }
-
-        async function signUp() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch(`${API_BASE}/api/register`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ username, password })
-                });
-                const data = await response.json();
-
-                if (!response.ok) {
-                    document.getElementById('auth-message').innerText = data.error || 'Sign up failed.';
-                    return;
-                }
-
-                document.getElementById('auth-message').innerText = 'Sign up successful. Please sign in.';
-            } catch (e) {
-                document.getElementById('auth-message').innerText = 'Could not reach server: ' + e.message;
-            }
-        }
-
-        async function signOut() {
-            if (authToken) {
-                try {
-                    await fetch(`${API_BASE}/api/logout`, {
-                        method: "POST",
-                        headers: { "Authorization": `Bearer ${authToken}` }
-                    });
-                } catch (e) {
-                }
-            }
-
-            authToken = null;
-            currentUsername = null;
-
-            document.getElementById('auth-section').style.display = '';
-            document.getElementById('games-section').style.display = 'none';
-            document.getElementById('upload-section').style.display = 'none';
-            document.getElementById('posts-section').style.display = 'none';
-        }
-
-
-        async function uploadGame(event) {
-            event.preventDefault(); 
-
-            const title = document.getElementById('game-title').value;
-            const description = document.getElementById('game-description').value;
-            const gameFile = document.getElementById('game-file').files[0];
-            const imageFile = document.getElementById('game-image').files[0];
-
-            if (!gameFile) {
-                document.getElementById('upload-message').innerText = 'Please choose a game file.';
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append("title", title);
-            formData.append("description", description);
-            formData.append("game_file", gameFile);
-            if (imageFile) {
-                formData.append("image_file", imageFile);
-            }
-
-            try {
-                const response = await fetch(`${API_BASE}/api/games/upload`, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${authToken}`
-                    },
-                    body: formData
-                });
-                const data = await response.json();
-
-                if (!response.ok) {
-                    document.getElementById('upload-message').innerText = data.error || 'Upload failed.';
-                    return;
-                }
-
-                document.getElementById('upload-message').innerText = 'Game uploaded!';
-                document.getElementById('game-title').value = '';
-                document.getElementById('game-description').value = '';
-                loadGames();
-            } catch (e) {
-                document.getElementById('upload-message').innerText = 'Could not reach server: ' + e.message;
-            }
-        }
-
-        async function loadGames() {
-            const gameList = document.getElementById('game-list');
-            gameList.innerHTML = '';
-
-            try {
-                const response = await fetch(`${API_BASE}/api/games`);
-                const games = await response.json();
-
-                for (const game of games) {
-                    const card = document.createElement('div');
-                    card.className = 'game-card';
-
-                    const imageTag = game.image_filename
-                        ? `<img src="${API_BASE}/api/images/${game.image_filename}" alt="${game.title}">`
-                        : '';
-
-                    //card.innerHTML = `
-                    //    ${imageTag}
-                    //    <img class="capsule-gloss" src="Images/capsulegloss.svg"/>
-                    //`;
-                    card.innerHTML = `
-                        <div class="game-capsule">
-                            ${imageTag}
-                            <img class="capsule-gloss" src="Images/capsulegloss.svg"/>
-                        </div>
-                        <h3>${game.title}</h3>
-                        <p>${game.description || ''}</p>
-                        <p style="color:#aaa;font-size:0.85em;">by ${game.username}</p>
-                        <a href="${API_BASE}/api/games/${game.id}/download" style="color:#8ab4f8;">Download</a>
-                    `;
-                    gameList.appendChild(card);
-                }
-            } catch (e) {
-                gameList.innerText = 'Could not load games: ' + e.message;
-            }
-        }
-
-        async function createPost(event) {
-            event.preventDefault();
-            const content = document.getElementById('post-content').value.trim();
-            if (!content) return;
-
-            try {
-                const response = await fetch(`${API_BASE}/api/posts`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${authToken}`
-                    },
-                    body: JSON.stringify({ title: content.slice(0, 50), body: content })
-                });
-                const data = await response.json();
-
-                if (!response.ok) {
-                    document.getElementById('post-message').innerText = data.error || 'Post failed.';
-                    return;
-                }
-
-                document.getElementById('post-content').value = '';
-                document.getElementById('post-message').innerText = 'Post created!';
-                loadPosts();
-            } catch (e) {
-                document.getElementById('post-message').innerText = 'Could not reach server: ' + e.message;
-            }
-        }
-
-        async function loadPosts() {
-            const postList = document.getElementById('post-list');
-            postList.innerHTML = '';
-
-            try {
-                const response = await fetch(`${API_BASE}/api/posts`);
-                const posts = await response.json();
-
-                for (const post of posts) {
-                    const div = document.createElement('div');
-                    div.style.background = '#23272a';
-                    div.style.margin = '1em 0';
-                    div.style.padding = '1em';
-                    div.style.borderRadius = '6px';
-                    div.innerHTML = `<strong></strong> <span style="color:#aaa;font-size:0.9em;">${new Date(post.created_at).toLocaleString()}</span><br>`;
-                    div.querySelector('strong').textContent = post.username || 'Anonymous';
-                    div.append(post.body); 
-                    postList.appendChild(div);
-                }
-            } catch (e) {
-                postList.innerText = 'Could not load posts: ' + e.message;
-            }
-        }
-    </script>
-    <footer>
-        <a href="conduct.html">Code of conduct</a><br>
-        <a href="guidelines.html">Comunity guidelines</a>
-    </footer>
+    <div id="menu">
+        <a class="item nav" tabindex="0" data-action="refresh">Refresh</a>
+        <a class="item nav" tabindex="0" data-action="signout">Sign out</a>
+        <a class="item nav" tabindex="0" data-action="close">Cancel</a>
+    </div>
+    <div class="softkeys">
+        <span class="sk-left" id="sk-left"></span>
+        <span class="sk-center" id="sk-center"></span>
+        <span class="sk-right" id="sk-right"></span>
+    </div>
+</div>
+<script src="Scripts/kaios.js"></script>
 </body>
 </html>
