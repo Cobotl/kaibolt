@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COBOLT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/links.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="Images/favicon-96x96.png?v=2" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="Images/logos/faviconlogo.svg?v=2" />
+    <link rel="shortcut icon" href="Images/favicon.ico?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png?v=2" />
+    <meta name="apple-mobile-web-app-title" content="Cobolt" />
+    <link rel="manifest" href="/site.webmanifest?v=2" />
+    <!-- AWS Amplify script removed - we're using our own Flask server instead -->
+    <style>
+        /*
+        replaced with /css/style.css
+
+        body { font-family: Arial, sans-serif; background: #23272a; color: #fff; margin: 0; }
+        header { background: #181c20; padding: 1em; text-align: center; }
+        footer { background: #181c20; padding: 1em; text-align: center; }
+        nav a { color: #fff; margin: 0 1em; text-decoration: none; }
+        .container { max-width: 900px; margin: 2em auto; background: #2c3136; padding: 2em; border-radius: 8px; }
+        .game-list { display: flex; flex-wrap: wrap; gap: 1em; justify-content: center;}
+        .game-card { background: #23272a; padding: 1em; border-radius: 6px; width: 160px; }
+        .upload-form { margin-bottom: 2em; }
+        input, button { padding: 0.5em; border-radius: 4px; border: none; }
+        button { background: #3d59ab; color: #ffff; font-weight: bold; cursor: pointer; }
+        .upload { position: absolute; left:42.5% }
+        .games { position: absolute; left:36%; top: 13.7%; }
+        .logout { position: absolute; left:50%; top:13.5% }
+        */
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Images/aerocoboltbeta.svg" alt="COBOLT Logo" style="height: 50px;">
+        <nav>
+            <a href="#" onclick="showSection('games')">Games</a>
+            <a href="#" onclick="showSection('upload')">Upload</a>
+            <a href="#" onclick="showSection('posts')">Posts</a>
+            <a href="#" onclick="signOut()">Sign Out</a>
+        <!-- Made the divs so we can move the icons, else would break shit -->
+        </nav>
+    </header>
+    <div class="container">
+        <div id="auth-section">
+            <h2>Error 404</h2>
+            <p>You tried to look up for something secret and... It doesn't exist.</p>
+            <p>This content was removed or just changed link. <a href="index.html">Let's go back home.</a></p>
+        </div>
+    <footer>
+        <a href="conduct.html">Code of conduct</a><br>
+        <a href="guidelines.html">Comunity guidelines</a>
+    </footer>
+</body>
+</html>

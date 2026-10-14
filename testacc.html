@@ -1,0 +1,81 @@
+<!-- not complete yet -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COBOLT - Zephyr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/links.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="Images/favicon-96x96.png?v=2" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="Images/favicon.svg?v=2" />
+    <link rel="shortcut icon" href="Images/favicon.ico?v=2" />
+    <link rel="apple-touch-icon" sizes="180x180" href="Images/apple-touch-icon.png?v=2" />
+    <meta name="apple-mobile-web-app-title" content="Cobolt" />
+    <link rel="manifest" href="/site.webmanifest?v=2" />
+    <!-- AWS Amplify script removed - we're using our own Flask server instead -->
+    <!-- embed -->
+    <meta content="Cobolt - Zephyr (@zephyr)" property="og:title" />
+    <meta content="Example bio. Also, this is a prototype, profiles aren't actually implemented yet." property="og:description" />
+    <meta content="https://cobolt.github.io/testacc.html" property="og:url" />
+    <meta content="https://cobotl.github.io/Images/Embed%20Logo.png" property="og:image" />
+    <meta content="#0047AB" data-react-helmet="true" property="theme-color" />
+
+    <style>
+        /*
+        archived, replaced with /css/style.css
+
+        body { font-family: Arial, sans-serif; background: #23272a; color: #fff; margin: 0; }
+        header { background: #181c20; padding: 1em; text-align: center; }
+        footer { background: #181c20; padding: 1em; text-align: center; }
+        nav a { color: #fff; margin: 0 1em; text-decoration: none; }
+        .container { max-width: 900px; margin: 2em auto; background: #2c3136; padding: 2em; border-radius: 8px; }
+        .game-list { display: flex; flex-wrap: wrap; gap: 1em; justify-content: center;}
+        .game-card { background: #23272a; padding: 1em; border-radius: 6px; width: 160px; }
+        .upload-form { margin-bottom: 2em; }
+        input, button { padding: 0.5em; border-radius: 4px; border: none; }
+        button { background: #3d59ab; color: #ffff; font-weight: bold; cursor: pointer; }
+        .upload { position: absolute; left:42.5% }
+        .games { position: absolute; left:36%; top: 13.7%; }
+        .logout { position: absolute; left:50%; top:13.5% }
+        */
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Images/aerocoboltbeta.svg" alt="COBOLT Logo" style="height: 50px;">
+        <nav>
+            <a href="#" onclick="showSection('games')">Games</a>
+            <a href="#" onclick="showSection('upload')">Upload</a>
+            <a href="#" onclick="showSection('posts')">Posts</a>
+            <a href="#" onclick="signOut()">Sign Out</a>
+        <!-- Made the divs so we can move the icons, else would break shit -->
+        </nav>
+    </header>
+    <div class="behind_navbar">
+        <div class="banner_area">
+            <div class="banner_container">
+                <img class="banner" src="Images/prototype/test_banner.png">
+            </div>
+            <div class="banner_header_area">
+                <div class="profile_pfp">
+                    <img src="Images/prototype/test_pfp_1.png" alt="Profile Picture">
+                    <img class="capsule-gloss" src="Images/gloss/Circle Gloss.svg"/>
+                </div>
+                <div class="banner_info_area">
+                    <div class="profile_name"><h2>Zephyr</h2></div>
+                    <div class="handle"><a href="testacc.html">@zephyr</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="pc"></div> <!-- Do not confuse, this means "Post container" -->
+        <div class="posts"><p>Posts</p></div>
+        <div class="post"><p>havent got to this part yet</p></div> <!-- Gonna insert a JS code so the container is dynamic -->
+        <footer>
+            <a href="conduct.html">Code of conduct</a><br>
+            <a href="guidelines.html">Comunity guidelines</a>
+        </footer>
+
+    </div>
+</body>
+</html>
