@@ -1,26 +1,29 @@
 {
-	"version": "2.0.0",
+	"version": "1.0.0",
 	"name": "Cobolt",
-	"theme_color": "#0047ab",
 	"description": "Your platform, your games.",
 	"launch_path": "/index.html",
 	"icons": {
-		"56": "/Images/logos/kaiosapplogo_56.svg",
-		"112": "/Images/logos/kaiosapplogo_112.svg"
+		"56": "/Images/logos/kaiosapplogo_56.png",
+		"112": "/Images/logos/kaiosapplogo_112.png"
 	},
 	"developer": {
 		"name": "Cobolt Team",
 		"url": "https://github.com/Cobotl"
 	},
-	"type": "web",
-	"dependencies": { "ads-sdk": "1.5.5" },
-	"installs_allowed_from": ["*"],
+	"type": "privileged",
+	"orientation": "portrait-primary",
+	"permissions": {
+		"systemXHR": {
+			"description": "Talk to the Cobolt server"
+		}
+	},
+	"default_locale": "en",
 	"locales": {
-		"en-US": {
+		"en": {
 			"name": "Cobolt",
 			"subtitle": "Your platform, your games.",
 			"description": "Cobolt is a social media that has games and a easy way to install mods for those games without any trouble."
 		}
-	},
-	"default_locale": "en"
+	}
 }
