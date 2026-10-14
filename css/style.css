@@ -1,0 +1,162 @@
+:root {
+    /* put variables here btw */
+    --main-background-color: #16181a;
+    --header-background-color: #10121699;
+    --container-background-color: #191b1e;
+    --game-card-background-color: #17181a; /* when we add game pages we wont need this one */
+
+    --main-text-color: #fff;
+
+    --main-button-color: #3d59ab;
+}
+
+/* general */
+/* body */
+body {
+    font-family: Arial, sans-serif;
+    background: var(--main-background-color);
+    color: var(--main-text-color);
+    margin: 0;
+}
+
+/* header */
+header {
+    background: var(--header-background-color);
+    text-align: center;
+    backdrop-filter: blur(4px);
+    padding: 16px;
+    margin: 16px;
+    border-radius: 16px;
+    box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5) inset, 0px 0px 16px rgba(255, 255, 255, 0.125) inset, 0px 2px 32px rgba(0, 0, 0, 0.5);
+
+    position: sticky;
+    top: 16px;
+    z-index: 2;
+}
+nav a {
+    color: var(--main-text-color);
+    margin: 0 1em;
+    text-decoration: none;
+}
+
+/* footer */
+footer { padding: 1em; text-align: center; }
+
+/* input */
+input, button { padding: 0.5em; border-radius: 4px; border: none; }
+button { background: var(--main-button-color); color: #ffff; font-weight: bold; cursor: pointer; }
+
+/* text */
+header h1 {
+    margin: 4px;
+}
+h2 {
+    margin: 4px 0;
+}
+h3 {
+    margin: 4px 0;
+}
+
+/* pages */
+/* common */
+.container {
+    max-width: 900px;
+    margin: 2em auto;
+    background: var(--container-background-color);
+    padding: 2em;
+    border-radius: 8px;
+}
+
+/* upload */
+.upload-form {
+    margin-bottom: 2em;
+}
+
+/* games */
+.game-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+}
+.game-card {
+    background: var(--game-card-background-color);
+    padding: 1em;
+    border-radius: 6px;
+    width: 160px;
+}
+
+/* game branding */
+/* capsule */
+.game-capsule {
+    position: relative;
+    width: 1em;
+    height: 1em;
+    border-radius: 0.25em;
+    font-size: 150px;
+    margin: 4px;
+    background-color: black;
+    overflow: hidden;
+}
+.game-capsule img {
+    width: inherit;
+    position: absolute;
+    border-radius: inherit;
+    object-fit: cover;
+}
+.capsule-gloss {
+    top: 0;
+    box-shadow: 0px 0px 40px rgba(255, 255, 255, 0.4) inset;
+    border-radius: inherit;
+}
+
+/* profiles */
+.behind_navbar {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.profile_pfp {
+    overflow: hidden;
+    border-radius: 50%;
+    width: 128px;
+    height: 128px;
+    display: inline-block;
+    left: 64px;
+    top: -64px;
+    position: relative;
+}
+
+.profile_pfp img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.banner_header_area {
+    left: 64px;
+    top: -64px;
+    float: left;
+}
+.banner_info_area {
+    float: right;
+    left: 84px;
+    top: -64px;
+    position: relative;
+}
+
+.banner_area {
+    width: 100%;
+    height: calc(15vw + 256px);
+}
+.banner_container {
+    width: 100%;
+    height: 100%;
+}
+.banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 40%
+}
