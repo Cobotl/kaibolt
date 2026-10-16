@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "Server status",
-  "message": "Down",
-  "color": "red"
+  "message": "Up",
+  "color": "brightgreen"
 }
