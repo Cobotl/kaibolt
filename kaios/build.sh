@@ -8,6 +8,7 @@ rm -f "$OUT"
 zip -qr "$OUT" \
     manifest.webapp index.html conduct.html guidelines.html 404.html \
     css/kaios.css css/style.css css/links.css \
-    js/kaios.js js/doc.js \
+    Scripts/kaios.js Scripts/doc.js \ 
+    # ↑ Don't add debug.js, that's only used in KaiOSTR (KaiOS simulator)
     Images/logos/kaiosapplogo_56.png Images/logos/kaiosapplogo_112.png \
 echo "Built $OUT ($(wc -c < "$OUT") bytes)"
