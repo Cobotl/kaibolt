@@ -6,9 +6,8 @@ cd "$(dirname "$0")/.."
 OUT=kaios/application.zip
 rm -f "$OUT"
 zip -qr "$OUT" \
-    manifest.webapp index.html conduct.html guidelines.html 404.html \
+    manifest.webapp index.html conduct.html guidelines.html 404.html games.html help.html \
     css/kaios.css css/style.css css/links.css \
-    Scripts/kaios.js Scripts/doc.js \ 
-    # ↑ Don't add debug.js, that's only used in KaiOSTR (KaiOS simulator)
+    Scripts/kaios.js Scripts/doc.js \
     Images/logos/kaiosapplogo_56.png Images/logos/kaiosapplogo_112.png \
 echo "Built $OUT ($(wc -c < "$OUT") bytes)"
