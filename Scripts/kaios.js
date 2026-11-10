@@ -1,8 +1,10 @@
 (function () {
     'use strict';
 
+    if (!document.getElementById('view-auth')) return;
+
     var bootEl = document.getElementById('boot');
-    if (bootEl) bootEl.textContent = 'v2.1.2 kaios.js started';
+    if (bootEl) bootEl.textContent = 'v1.0.3 kaios.js started';
 
     var API_BASE = 'https://cobolt-1-xmcq.gaur-alnilam.ts.net';
     var MAX_POSTS = 20;
@@ -56,7 +58,7 @@
     }
 
     var SOFTKEYS = {
-        auth:    { l: 'Sign Up', c: 'Select', r: 'Sign In' },
+        auth:    { l: 'Sign Up', c: 'Select', r: 'Options' },
         posts:   { l: 'New',     c: '',       r: 'Options' },
         compose: { l: 'Cancel',  c: '',       r: 'Post' }
     };
@@ -75,7 +77,8 @@
 
     function keepVisible(el) {
         var box = $('content');
-        var top = el.offsetTop - box.offsetTop;
+        if (el.offsetParent !== box) return;
+        var top = el.offsetTop;
         var bottom = top + el.offsetHeight;
         if (top < box.scrollTop) box.scrollTop = Math.max(0, top - 6);
         else if (bottom > box.scrollTop + box.clientHeight) box.scrollTop = bottom - box.clientHeight + 6;
@@ -116,8 +119,28 @@
         el.className = 'msg' + (ok ? ' ok' : '');
     }
 
+    var MENUS = {
+        auth: [['help', 'Help'], ['quit', 'Quit'], ['close', 'Cancel']],
+        posts: [['refresh', 'Refresh'], ['help', 'Help'], ['signout', 'Sign out'], ['quit', 'Quit'], ['close', 'Cancel']]
+    };
+
+    function buildMenu() {
+        var menu = $('menu');
+        menu.innerHTML = '';
+        var entries = MENUS[view] || [];
+        for (var i = 0; i < entries.length; i++) {
+            var a = document.createElement('a');
+            a.className = 'item nav';
+            a.tabIndex = 0;
+            a.setAttribute('data-action', entries[i][0]);
+            a.textContent = entries[i][1];
+            menu.appendChild(a);
+        }
+    }
+
     function toggleMenu(open) {
         menuOpen = open;
+        if (open) buildMenu();
         $('menu').className = open ? 'open' : '';
         if (open) {
             setSoftkeys('', 'Select', 'Close');
@@ -261,6 +284,8 @@
         else if (act === 'refresh') { toggleMenu(false); loadPosts(); }
         else if (act === 'signout') signOut();
         else if (act === 'close') toggleMenu(false);
+        else if (act === 'quit') window.close();
+        else if (act === 'help') location.href = 'help.html';
         else if (el.tagName === 'A' && el.getAttribute('href')) location.href = el.getAttribute('href');
     }
 
@@ -273,8 +298,7 @@
 
     function onRight() {
         if (menuOpen) { toggleMenu(false); return; }
-        if (view === 'auth') signIn();
-        else if (view === 'posts') toggleMenu(true);
+        if (view === 'auth' || view === 'posts') toggleMenu(true);
         else if (view === 'compose') sendPost();
     }
 
