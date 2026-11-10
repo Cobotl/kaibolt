@@ -31,7 +31,17 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.app-header .who { font-weight: normal; font-size: 12px; float: right; }
+.app-header .who {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    max-width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: normal;
+    font-size: 12px;
+}
 
 .app-content {
     position: absolute;
@@ -125,6 +135,11 @@ textarea { height: 110px; resize: none; }
     z-index: 10;
 }
 #menu.open { display: block; }
+
+.doc h1 { font-size: 16px; margin: 2px 0 6px; }
+.doc h3 { font-size: 14px; margin: 8px 0 2px; color: #8ab4f8; }
+.doc p  { margin: 0 0 6px; }
+.doc p a { color: #8ab4f8; text-decoration: underline; }
 
 @media (max-width: 320px) {
     body { font-size: 14px; word-wrap: break-word; }
